@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.min-w-xss {
+  min-width: 640px;
+}
+
+.loaderSpinner {
+  position:absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.showHidden {
+  display: block;
+}
+
+.contenthidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.wrongAnimation {
+  animation: animate .5s ease-in-out infinite;
+  border: 1px solid red;
+  border-raduis : none;
+  transition: all .5s linear;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(0px);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+
+}
