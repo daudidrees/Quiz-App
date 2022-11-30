@@ -34,17 +34,7 @@ const quiz4 = {
   option4: "Q4:4",
 };
 
-const quiz5 = {
-  quiz: 'Q: What\'s a baby rabbit called?',
-  answer: "ans4",
-  option1: "Q5:1",
-  option2: "Q5:2",
-  option3: "Q5:3",
-  option4: "Q5:4",
-};
-
-const quiz = [quiz1, quiz2, quiz3, quiz4, quiz5];
-
+const quiz = [quiz1, quiz2, quiz3, quiz4];
 
 //Selector
 const quizInput = document.querySelector('.quizInput');
@@ -63,14 +53,19 @@ let answer;
 let score = 0;
 let randomElement = 0;
 
-//Random Question Functions
-const randomEl = function () {
-  quizInput.textContent = quiz[randomElement].quiz;
-  option1.innerHTML = quiz[randomElement].option1;
-  option2.innerHTML = quiz[randomElement].option2;
-  option3.innerHTML = quiz[randomElement].option3;
-  option4.innerHTML = quiz[randomElement].option4;
+//Random Question Function
+const randomEl = function (question) {
+  quizInput.textContent = quiz[question].quiz;
+  option1.innerHTML = quiz[question].option1;
+  option2.innerHTML = quiz[question].option2;
+  option3.innerHTML = quiz[question].option3;
+  option4.innerHTML = quiz[question].option4;
 };
+
+//Question Initailization
+randomEl(randomElement);
+
+console.log(randomElement);
 
 //Event Handlers
 submitBtn.addEventListener('click', () => {
@@ -85,12 +80,15 @@ submitBtn.addEventListener('click', () => {
   answers.forEach(el => {
     if (el.checked) {
       answer = el.getAttribute('id');
-      contentArea.classList.add('contenthidden');
-      loaderSpinner.classList.add('showHidden');
-      setTimeout(() => {
-        loaderSpinner.classList.remove('showHidden');
-        contentArea.classList.remove('contenthidden');
-      }, 1000);
+
+      if (randomElement < quiz.length) {
+        contentArea.classList.add('contenthidden');
+        loaderSpinner.classList.add('showHidden');
+        setTimeout(() => {
+          loaderSpinner.classList.remove('showHidden');
+          contentArea.classList.remove('contenthidden');
+        }, 1000);
+      }
     };
     return answer;
   });
@@ -114,11 +112,10 @@ submitBtn.addEventListener('click', () => {
     if (randomElement < quiz.length) randomElement++
 
     //Updating UI
-    randomEl();
+    randomEl(randomElement);
   } else {
     setTimeout(() => {
       wrongAnswer.classList.add('wrongAnimation');
-
     }, 1000);
 
     setTimeout(() => {
@@ -126,6 +123,3 @@ submitBtn.addEventListener('click', () => {
     }, 2000);
   };
 });
-
-//Question Initailization
-randomEl();
